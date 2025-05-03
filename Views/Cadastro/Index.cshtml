@@ -1,0 +1,203 @@
+﻿@model Pontual.DTO.Post.CadastroPostDTO
+
+<style>
+    body {
+        background: linear-gradient(135deg, #6a1b9a, #8e24aa, #4a148c);
+        background-size: 400% 400%;
+        animation: gradientAnim 15s ease infinite;
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    keyframes gradientAnim {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    form {
+        background-color: rgba(0, 0, 0, 0.65);
+        padding: 30px;
+        max-width: 900px;
+        margin: 50px auto;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    h2.fade-in {
+        text-align: center;
+        color: #ffc0ff;
+        margin-bottom: 30px;
+        animation: fadeIn 2s ease;
+    }
+
+    keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    fieldset {
+        border: none;
+        margin-bottom: 25px;
+    }
+
+    legend {
+        font-size: 1.3rem;
+        color: #e1bee7;
+        margin-bottom: 10px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 25px;
+        border: 1px solid #9c27b0;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1rem;
+    }
+
+    input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #ce93d8;
+        box-shadow: 0 0 5px #ce93d8;
+    }
+
+    .contato-item, .endereco-item {
+        margin-bottom: 15px;
+    }
+
+    button[type="submit"], button[type="button"] {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 25px;
+        background-color: #ab47bc;
+        color: white;
+        font-size: 1.1rem;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #9c27b0;
+    }
+
+    media (max-width: 768px) {
+        form {
+            padding: 20px;
+        }
+
+        input, select, button {
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<h2 class="fade-in">Cadastro Inicial</h2>
+
+<form asp-action="Cadastro" method="post">
+    <fieldset>
+        <legend>Login</legend>
+        <div class="password-group">
+            <input asp-for="DadosUsuario.DadosLogin.Senha" type="password" id="senha" placeholder="Senha" />
+            <button type="button" class="toggle-pass" onclick="togglePassword('senha')">👁</button>
+        </div>
+
+        <div class="password-group">
+            <input asp-for="DadosUsuario.DadosLogin.ContraSenha" type="password" id="confirmaSenha" placeholder="Confirmar Senha" />
+            <button type="button" class="toggle-pass" onclick="togglePassword('confirmaSenha')">👁</button>
+        </div>
+
+        <div id="senha-feedback">
+            <div id="senha-forca" class="forca-bar"></div>
+            <small id="senha-dica" class="dica"></small>
+        </div>
+        </fieldset>
+
+
+    <fieldset>
+        <legend>Perfil</legend>
+        <input asp-for="DadosUsuario.DadosPerfil.Nome" placeholder="Nome completo" />
+        <input asp-for="DadosUsuario.DadosPerfil.NomeSocial" placeholder="Nome social" />
+        <input asp-for="DadosUsuario.DadosPerfil.Cargo" placeholder="Cargo" />
+    </fieldset>
+
+    <fieldset>
+        <legend>Contato</legend>
+        <div id="contatos-container">
+            <div class="contato-item">
+                <input name="DadosUsuario.DadosContato[0].Contato" placeholder="Contato 1" />
+                <select name="DadosUsuario.DadosContato[0].TipoContato">
+                    <option value="1">Email</option>
+                    <option value="2">WhatsApp</option>
+                    <option value="3">Celular</option>
+                    <option value="4">Telefone Fixo</option>
+                    <option value="5">Rede Social</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" id="add-contato">Adicionar Contato</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Endereço</legend>
+        <div id="enderecos-container">
+            <div class="endereco-item">
+                <input name="DadosUsuario.DadosEndereco[0].Rua" placeholder="Rua" />
+                <input name="DadosUsuario.DadosEndereco[0].Numero" placeholder="Número" />
+                <input name="DadosUsuario.DadosEndereco[0].Cidade" placeholder="Cidade" />
+                <input name="DadosUsuario.DadosEndereco[0].UF" placeholder="UF" />
+            </div>
+        </div>
+        <button type="button" id="add-endereco">Adicionar Endereço</button>
+    </fieldset>
+
+    <input asp-for="DadosUsuario.Documento" placeholder="CPF/CNPJ" />
+    <input asp-for="DadosUsuario.DataNiver" type="date" />
+
+    <button type="submit">Salvar Cadastro</button>
+</form>
+
+<script>
+    document.getElementById('add-contato').addEventListener('click', function () {
+        const container = document.getElementById('contatos-container');
+        const index = container.children.length;
+        const contatoHTML = `
+            <div class="contato-item">
+                <input name="DadosUsuario.DadosContato[${index}].Contato" placeholder="Contato ${index + 1}" />
+                <select name="DadosUsuario.DadosContato[${index}].TipoContato">
+                    <option value="1">Email</option>
+                    <option value="2">WhatsApp</option>
+                    <option value="3">Celular</option>
+                    <option value="4">Telefone Fixo</option>
+                    <option value="5">Rede Social</option>
+                </select>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', contatoHTML);
+    });
+
+    document.getElementById('add-endereco').addEventListener('click', function () {
+        const container = document.getElementById('enderecos-container');
+        const index = container.children.length;
+        const enderecoHTML = `
+            <div class="endereco-item">
+                <input name="DadosUsuario.DadosEndereco[${index}].Rua" placeholder="Rua" />
+                <input name="DadosUsuario.DadosEndereco[${index}].Numero" placeholder="Número" />
+                <input name="DadosUsuario.DadosEndereco[${index}].Cidade" placeholder="Cidade" />
+                <input name="DadosUsuario.DadosEndereco[${index}].UF" placeholder="UF" />
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', enderecoHTML);
+    });
+</script>

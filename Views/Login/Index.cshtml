@@ -1,0 +1,14 @@
+﻿@model LoginModel
+
+<h2>Login</h2>
+
+<form asp-action="Index" method="post">
+    <input asp-for="Usuario" placeholder="Usuário" />
+    <input asp-for="Senha" type="password" placeholder="Senha" />
+    <button type="submit">Entrar</button>
+</form>
+
+@if (TempData["PrimeiroAcesso"] != null)
+{
+    <p>Primeiro acesso? Complete seu cadastro.</p>
+}

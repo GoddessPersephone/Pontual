@@ -1,0 +1,62 @@
+/* Responsividade - Ajusta o layout para telas menores */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar-nav {
+        display: block;
+        text-align: center;
+    }
+
+        .navbar-nav .nav-link {
+            padding: 10px 15px;
+            display: block;
+        }
+
+    /* Formulário */
+    form {
+        padding: 15px;
+    }
+
+    /* Ajuste de inputs */
+    input, select, button {
+        width: 100%;
+    }
+
+        input[type="date"] {
+            width: 100%;
+        }
+
+    /* Ajuste do título */
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Ajuste das seções do formulário */
+    fieldset {
+        margin-bottom: 20px;
+    }
+
+    /* Ajuste no botão */
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Responsividade para telas pequenas (ex: celulares) */
+@media (max-width: 480px) {
+    /* Ajuste de inputs */
+    input, select, button {
+        font-size: 0.9rem;
+    }
+
+    /* Ajuste do título */
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Ajuste de campo específico (data de nascimento) */
+    input[type="date"] {
+        width: 100%;
+    }
+
+}
