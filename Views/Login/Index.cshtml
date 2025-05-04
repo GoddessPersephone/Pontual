@@ -1,14 +1,168 @@
 ﻿@model LoginModel
-
-<h2>Login</h2>
-
-<form asp-action="Index" method="post">
-    <input asp-for="Usuario" placeholder="Usuário" />
-    <input asp-for="Senha" type="password" placeholder="Senha" />
-    <button type="submit">Entrar</button>
-</form>
-
-@if (TempData["PrimeiroAcesso"] != null)
-{
-    <p>Primeiro acesso? Complete seu cadastro.</p>
+@{
+    ViewData["Title"] = "Login";
 }
+
+<style>
+    body {
+        background: linear-gradient(135deg, #6a1b9a, #8e24aa, #4a148c);
+        background-size: 400% 400%;
+        animation: gradientAnim 15s ease infinite;
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    keyframes gradientAnim {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
+    .login-container {
+        max-width: 400px;
+        margin: 80px auto;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.65);
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #ffc0ff;
+        }
+
+    .usuario, .password-group {
+        position: relative;
+        margin-bottom: 30px;
+        margin-bottom: 1rem;
+    }
+
+        .usuario input, .password-group input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            border-radius: 25px;
+            border: 1px solid #9c27b0;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: cornflowerblue;
+            font-size: 1rem;
+        }
+
+            .usuario input::placeholder, .password-group input::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+    .toggle-pass {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background-color: #6a0dad;
+        border: none;
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        transition: background-color 0.3s;
+    }
+
+        .toggle-pass:hover {
+            background-color: #8b2ed1;
+        }
+
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+        .button-group button, .show-login-btn {
+            flex: 1;
+            padding: 10px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            border-radius: 20px;
+            border: none;
+            background-color: #ab47bc;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+            .show-login-btn:hover, .button-group button:hover {
+                background-color: #9c27b0;
+            }
+
+    .info {
+        margin-top: 15px;
+        text-align: center;
+        color: #f3e5f5;
+    }
+
+    #loginForm {
+        display: none;
+    }
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <button class="show-login-btn" onclick="mostrarFormulario()">Entrar</button>
+    <form method="get" class="button-group" id="btn-cadastro">
+            <button type="submit" formaction="/Cadastro/">Criar Usuário</button>
+        </form>
+    <form method="post" id="loginForm">
+        <div class="usuario">
+            <input asp-for="Usuario" type="text" placeholder="Usuário" />
+        </div>
+        <div class="password-group">
+            <input asp-for="Senha" id="senha" type="password" placeholder="Senha" />
+            <button type="button" class="toggle-pass" onclick="toggleSenha()">👁</button>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" formaction="/Home">Entrar</button>
+        </div>
+    </form>
+
+    @if (TempData["PrimeiroAcesso"] != null)
+    {
+        <div class="info">
+            <p>🔐 Primeiro acesso? Complete seu cadastro.</p>
+        </div>
+    }
+</div>
+
+<script>
+    function toggleSenha() {
+        const input = document.getElementById("senha");
+        input.type = input.type === "password" ? "text" : "password";
+    }
+
+    function mostrarFormulario() {
+        document.getElementById("loginForm").style.display = "block";
+        document.querySelector(".show-login-btn").style.display = "none";
+        document.querySelector("#btn-cadastro").style.display = "none";
+    }
+</script>

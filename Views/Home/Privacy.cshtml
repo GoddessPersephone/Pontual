@@ -1,6 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Política de Privacidade";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<style>
+    body {
+        background: linear-gradient(135deg, #4a148c, #6a1b9a, #8e24aa);
+        background-size: 400% 400%;
+        animation: gradientAnim 15s ease infinite;
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: white;
+    }
+
+    keyframes gradientAnim {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .privacy-container {
+        max-width: 800px;
+        margin: 60px auto;
+        background-color: rgba(0, 0, 0, 0.65);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    }
+
+    .privacy-container h1 {
+        font-size: 2.5rem;
+        color: #ffc0ff;
+        margin-bottom: 20px;
+        text-align: center;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .privacy-container p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #f3e5f5;
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="privacy-container">
+    <h1>@ViewData["Title"]</h1>
+    <p>Esta página é usada para descrever as diretrizes da sua política de privacidade. Você pode informar como os dados dos usuários são tratados, armazenados e protegidos, conforme as diretrizes da LGPD e boas práticas de segurança.</p>
+</div>

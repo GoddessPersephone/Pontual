@@ -2,7 +2,69 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background: linear-gradient(135deg, #4a148c, #6a1b9a, #8e24aa);
+        background-size: 400% 400%;
+        animation: gradientAnim 15s ease infinite;
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: white;
+    }
+
+    keyframes gradientAnim {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .home-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .home-container h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .home-container p {
+        font-size: 1.2rem;
+        color: #f3e5f5;
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    .home-container a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #ab47bc;
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+    }
+
+    .home-container a:hover {
+        background: linear-gradient(135deg, #4a148c, #6a1b9a, #8e24aa);;
+    }
+
+    keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="home-container">
+    <h1>👋 Bem-vindo ao Pontual</h1>
+    <p>Comece agora a gerenciar sua jornada de trabalho com agilidade.</p>
+    <a href="https://learn.microsoft.com/aspnet/core" target="_blank">📘 Ver documentação do ASP.NET Core</a>
 </div>

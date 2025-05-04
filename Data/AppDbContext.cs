@@ -23,6 +23,11 @@ namespace Pontual.Data
                 .HasOne<UsuarioModel>()
                 .WithMany()
                 .HasForeignKey(rp => rp.IdUsuario);
+            
+            modelBuilder.Entity<UsuarioModel>()
+                .HasOne<UsuarioModel>()
+                .WithMany()
+                .HasForeignKey(rp => rp.IdCadastro);
         }
     }
 }

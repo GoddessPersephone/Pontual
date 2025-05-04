@@ -1,5 +1,6 @@
 ﻿@model Pontual.DTO.Post.CadastroPostDTO
 
+
 <style>
     body {
         background: linear-gradient(135deg, #6a1b9a, #8e24aa, #4a148c);
@@ -12,9 +13,20 @@
     }
 
     keyframes gradientAnim {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
     }
 
     form {
@@ -34,8 +46,18 @@
     }
 
     keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     }
 
     fieldset {
@@ -54,21 +76,25 @@
         padding: 12px;
         margin: 8px 0;
         border-radius: 25px;
+        background-color: #ab47bc;
         border: 1px solid #9c27b0;
         background-color: rgba(255, 255, 255, 0.1);
-        color: white;
+        color: cornflowerblue;
         font-size: 1rem;
+        text-transform: uppercase;
     }
 
-    input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-    }
+        input::placeholder {
+            text-transform: none;
+            color: cornflowerblue;
+        }
 
-    input:focus, select:focus {
-        outline: none;
-        border-color: #ce93d8;
-        box-shadow: 0 0 5px #ce93d8;
-    }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ce93d8;
+            box-shadow: 0 0 5px #ce93d8;
+        }
 
     .contato-item, .endereco-item {
         margin-bottom: 15px;
@@ -81,7 +107,7 @@
         border: none;
         border-radius: 25px;
         background-color: #ab47bc;
-        color: white;
+        color: cornflowerblue;
         font-size: 1.1rem;
         margin-top: 15px;
         cursor: pointer;
@@ -93,36 +119,83 @@
     }
 
     media (max-width: 768px) {
-        form {
-            padding: 20px;
+        form
+
+    {
+        padding: 20px;
+    }
+
+    }
+
+    .forca-bar {
+        height: 8px;
+        width: 100%;
+        background-color: dimgray;
+        border-radius: 5px;
+        margin-top: 5px;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .password-group {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+        .password-group input {
+            flex: 1;
+            padding-right: 2.5rem;
+            text-transform: none;
         }
 
-        input, select, button {
-            font-size: 0.95rem;
-        }
+    .toggle-pass {
+        position: absolute;
+        right: 10px;
+        background-color: #6a0dad;
+        border: none;
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        transition: background-color 0.3s;
     }
+
+        .toggle-pass:hover {
+            background-color: #8b2ed1;
+        }
 </style>
+
 
 <h2 class="fade-in">Cadastro Inicial</h2>
 
 <form asp-action="Cadastro" method="post">
     <fieldset>
         <legend>Login</legend>
+
+        <input asp-for="DadosUsuario.DadosLogin.Usuario" placeholder="Insira sua identificação única de usuário" />
+
         <div class="password-group">
-            <input asp-for="DadosUsuario.DadosLogin.Senha" type="password" id="senha" placeholder="Senha" />
-            <button type="button" class="toggle-pass" onclick="togglePassword('senha')">👁</button>
+            <input asp-for="DadosUsuario.DadosLogin.Senha" type="password" id="senha" placeholder="Insira sua Senha" />
+            <div <button type="button" class="toggle-pass" onmousedown="mostrarSenha('senha')" onmouseup="esconderSenha('senha')">👁</button></div>
         </div>
 
         <div class="password-group">
-            <input asp-for="DadosUsuario.DadosLogin.ContraSenha" type="password" id="confirmaSenha" placeholder="Confirmar Senha" />
-            <button type="button" class="toggle-pass" onclick="togglePassword('confirmaSenha')">👁</button>
+            <input asp-for="DadosUsuario.DadosLogin.ContraSenha" type="password" id="confirmaSenha" placeholder="Confirme sua Senha" />
+            <div <button type="button" class="toggle-pass" onmousedown="mostrarSenha('confirmaSenha')" onmouseup="esconderSenha('confirmaSenha')">👁</button></div>
         </div>
 
         <div id="senha-feedback">
             <div id="senha-forca" class="forca-bar"></div>
             <small id="senha-dica" class="dica"></small>
         </div>
-        </fieldset>
+    </fieldset>
 
 
     <fieldset>
@@ -173,17 +246,17 @@
         const container = document.getElementById('contatos-container');
         const index = container.children.length;
         const contatoHTML = `
-            <div class="contato-item">
-                <input name="DadosUsuario.DadosContato[${index}].Contato" placeholder="Contato ${index + 1}" />
-                <select name="DadosUsuario.DadosContato[${index}].TipoContato">
-                    <option value="1">Email</option>
-                    <option value="2">WhatsApp</option>
-                    <option value="3">Celular</option>
-                    <option value="4">Telefone Fixo</option>
-                    <option value="5">Rede Social</option>
-                </select>
-            </div>
-        `;
+                                        <div class="contato-item">
+                                            <input name="DadosUsuario.DadosContato[${index}].Contato" placeholder="Contato ${index + 1}" />
+                                            <select name="DadosUsuario.DadosContato[${index}].TipoContato">
+                                                <option value="1">Email</option>
+                                                <option value="2">WhatsApp</option>
+                                                <option value="3">Celular</option>
+                                                <option value="4">Telefone Fixo</option>
+                                                <option value="5">Rede Social</option>
+                                            </select>
+                                        </div>
+                                    `;
         container.insertAdjacentHTML('beforeend', contatoHTML);
     });
 
@@ -191,13 +264,53 @@
         const container = document.getElementById('enderecos-container');
         const index = container.children.length;
         const enderecoHTML = `
-            <div class="endereco-item">
-                <input name="DadosUsuario.DadosEndereco[${index}].Rua" placeholder="Rua" />
-                <input name="DadosUsuario.DadosEndereco[${index}].Numero" placeholder="Número" />
-                <input name="DadosUsuario.DadosEndereco[${index}].Cidade" placeholder="Cidade" />
-                <input name="DadosUsuario.DadosEndereco[${index}].UF" placeholder="UF" />
-            </div>
-        `;
+                                        <div class="endereco-item">
+                                            <input name="DadosUsuario.DadosEndereco[${index}].Rua" placeholder="Rua" />
+                                            <input name="DadosUsuario.DadosEndereco[${index}].Numero" placeholder="Número" />
+                                            <input name="DadosUsuario.DadosEndereco[${index}].Cidade" placeholder="Cidade" />
+                                            <input name="DadosUsuario.DadosEndereco[${index}].UF" placeholder="UF" />
+                                        </div>
+                                    `;
         container.insertAdjacentHTML('beforeend', enderecoHTML);
     });
+    function mostrarSenha(id) {
+        document.getElementById(id).type = "text";
+    }
+
+    function esconderSenha(id) {
+        document.getElementById(id).type = "password";
+    }
+    const senhaInput = document.getElementById("senha");
+    const confirmaInput = document.getElementById("confirmaSenha");
+    const forcaBar = document.getElementById("senha-forca");
+    const dicaText = document.getElementById("senha-dica");
+
+    senhaInput.addEventListener("input", validarSenha);
+    confirmaInput.addEventListener("input", validarSenha);
+
+    function validarSenha() {
+        const senha = senhaInput.value;
+        const confirma = confirmaInput.value;
+
+        let forca = 0;
+        if (senha.length >= 1 || senha != null) forca++;
+        if (/[A-Z]/.test(senha)) forca++;
+        if (/[0-9]/.test(senha)) forca++;
+        if (/[^A-Za-z0-9]/.test(senha)) forca++;
+
+        const cores = ["#f44336", "#ff9800", "#ffeb3b", "#4caf50"];
+        const textos = ["Muito fraca", "Fraca", "Média", "Forte"];
+        forcaBar.style.width = (forca / 4) * 100 + "%";
+        forcaBar.style.backgroundColor = cores[forca - 1] || "#ccc";
+        dicaText.textContent = senha.length === 0 ? "" : textos[forca - 1];
+
+        if (confirma && senha !== confirma) {
+            dicaText.textContent = "⚠️ As senhas não coincidem!";
+            forcaBar.style.backgroundColor = "#e91e63";
+        }
+        if (confirma && senha === confirma) {
+            dicaText.textContent = " ✅ As senhas coincidem!";
+            forcaBar.style.backgroundColor = "#8b2ed1";
+        }
+    }
 </script>
