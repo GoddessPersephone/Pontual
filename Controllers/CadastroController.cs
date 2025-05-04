@@ -36,7 +36,7 @@ namespace Pontual.Controllers
             // _context.Usuarios.Add(new Usuario { ... });
 
             TempData["Mensagem"] = "Cadastro realizado com sucesso!";
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("RegistrarPonto", "RegistroPontual");
         }
     }
 }
